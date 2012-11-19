@@ -10,12 +10,28 @@ get '/' do
   haml :index
 end
 
+get '/quotes' do
+  haml :quote_index
+end
+
 get '/quotes/edit' do
+  @quote = Quote.new
   haml :quote_edit
 end
 
 post '/quotes/edit' do
-  raise params.inspect
+  @quote = params[:id].nil? ? Quote.new : Quote.get(params[:id])
+  @quote.author = params[:author]
+  @quote.body = params[:body]
+  @quote.quote_date = params[:quote_date]
+  @quote.posted_by = params[:posted_by] if params[:parent_id].nil?
+  @quote.parent_id = params[:parent_id] unless params[:parent_id].nil?
+
+  if @quote.save
+    redirect '/quotes'
+  else
+    haml :quote_edit
+  end
 end
 
 get '/authors' do
@@ -66,6 +82,13 @@ end
 # DataMapper.auto_migrate!
 DataMapper.auto_upgrade!
 
+helpers do
+  def render_comment(quote)
+    author = Author.get(quote.author)
+    "<img src='#{author.avatar}' /><span class='name'>#{author.name}</span><span class='comment'>#{quote.body}</span>"
+  end
+end
+
 __END__
 
 @@ layout
@@ -102,28 +125,39 @@ __END__
       %a{:href => "authors/edit/#{author.id}"}=author.name
 
 
+@@ quote_index
+%div.title Quote Index
+%a{:href => 'quotes/edit'} Add
+- Quote.all.each do |quote|  
+  .quote
+    .quote_info
+      %posted_by=quote.posted_by
+      %date=quote.quote_date
+    = render_comment(quote)
+    
+
 
 @@ quote_edit
 %div.title Quote Edit
+= @quote.errors.inspect unless @quote.errors.nil?
 %form{ :action => "", :method => "post"}
   %fieldset
     %ol
       %li
-        %label{:for => "name"} Name:
-        %input{:type => "text", :name => "name", :class => "text"}
+        %label{:for => "author"} Name:
+        %select{:name =>  "author"}
+          - for author in Author.all
+            %option{:selected => @quote.author, :value => author.id} #{author.name}
       %li
-        %label{:for => "mail"} email:
-        %input{:type => "text", :name => "mail", :class => "text"}
+        %label{:for => "quote_date"} Date:
+        %input{:type => "text", :name => "quote_date", :class => "text", :value => @quote.quote_date}
       %li
-        %label{:for => "body"} Message:
-        %textarea{:name => "body"}
+        %label{:for => "body"} Comment:
+        %textarea{:name => "body", :value => @quote.body}        
+      %li
+        %label{:for => "posted_by"} Name:
+        %select{:name =>  "posted_by"}
+          - for author in Author.all
+            %option{:selected => @quote.posted_by, :value => author.id} #{author.name}
+
     %input{:type => "submit", :value => "Send", :class => "property"}
-
-
-
-  button :id,         Serial
-  property :author,     Integer
-  property :body,       Text
-  property :quote_date, DateTime
-  property :parent_id,  Integer
-  property :posted_by,  String
