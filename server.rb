@@ -6,6 +6,10 @@ DataMapper.setup(:default, 'postgres://postgres:postgres@127.0.0.1/quotes_board'
 
 set :haml, :format => :html5
 
+use Rack::Auth::Basic, "Protected Area" do |username, password|
+  username == 'foo' && password == 'bar'
+end
+
 get '/' do
   haml :index
 end
