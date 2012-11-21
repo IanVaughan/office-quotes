@@ -276,8 +276,8 @@ __END__
 
     %input{:type => "submit", :value => "Add", :class => "property"}
 
-= render_comment(@quote)
-=@comments.inspect
+- if !@quote.person.nil?
+  = render_comment(@quote)
 
 - if !@comments.nil?
   - @comments.each do |comment|
