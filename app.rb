@@ -28,7 +28,7 @@ class MyApp < Sinatra::Application
   get '/quote/edit/:id' do
     @quote = Quote.get(params[:id])
 
-    @comments = Comment.all(:quote => @quote.id.to_i, :order => [ :id ])
+    @comments = Comment.all(:quote => @quote.id, :order => [ :id ])
 
     haml :quote_edit
   end
