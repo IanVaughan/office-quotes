@@ -1,0 +1,6 @@
+%a.add_quote{:href => 'person/edit'} Add
+%ul.people
+  - Person.all.each do |person|
+    %li
+      %img{:width => 86, :height => 86, :src => person.avatar}
+      %a.name{:href => "person/edit/#{person.id}"}=person.name

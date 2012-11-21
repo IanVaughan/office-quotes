@@ -1,0 +1,50 @@
+%h3="#{@quote.id.nil? ? "New" : "Edit"} Quote"
+= @quote.errors.inspect unless @quote.errors.empty?
+
+- if @quote.person.nil?
+  %form{ :action => "/quote/edit", :method => "post"}
+    %fieldset
+      %ul
+        %li
+          %label{:for => "quote_date"} Date:
+          %input{:type => "date", :name => "quote_date", :value => "#{@quote.quote_date.nil? ? Date.today.strftime(fmt='%d/%m/%Y') : @quote.quote_date.strftime(fmt='%d/%m/%Y')}"}
+        %li
+          %label{:for => "posted_by"} Posted By:
+          %select{:name =>  "posted_by"}
+            - for person in Person.all
+              %option{:selected => @quote.posted_by, :value => person.id} #{person.name}
+      
+    %br
+    %fieldset    
+      %ul
+        %li
+          %b Quote
+        %li
+          %label{:for => "person"} Name:
+          %select{:name =>  "person"}
+            - for person in Person.all
+              %option{:selected => @quote.person, :value => person.id} #{person.name}
+        %li
+          %label{:for => "comment"} Comment:
+          %textarea{:name => "comment", :text => @quote.comment}
+
+      %input.button{:type => "submit", :value => "Add"}
+
+- if !@quote.person.nil?
+  .quote
+    = render_quote(@quote)
+
+- if !@quote.person.nil?
+  %form{ :action => "/quote/#{@quote.id}/comments", :method => "post"}
+    %fieldset    
+      %ul
+        %li
+          %label{:for => "person"} Name:
+          %select{:name =>  "person"}
+            - for person in Person.all
+              %option{:selected => @quote.person, :value => person.id} #{person.name}
+        %li
+          %label{:for => "comment"} Comment:
+          %textarea{:name => "comment", :value => @quote.comment}
+
+      %input.button{:type => "submit", :value => "Add"}

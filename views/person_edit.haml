@@ -1,0 +1,14 @@
+%h3="#{@person.id.nil? ? "New" : "Edit"} Person"
+
+= @person.errors.inspect unless @person.errors.empty?
+
+%form{:action => "/person/edit", :method => "post"}
+  %fieldset
+    %ul
+      %li
+        %label{:for => "name"} Name:
+        %input.text{:type => "text", :name => "name", :value => @person.name}
+      %li
+        %label{:for => "avatar"} Avatar URL:
+        %input.text{:type => "text", :name => "avatar", :value => @person.avatar}
+    %input.button{:type => "submit", :value => "Submit"}

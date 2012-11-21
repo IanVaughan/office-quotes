@@ -1,0 +1,105 @@
+
+* {
+  padding: 3px;
+}
+
+body {
+  font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+  font-size: 10pt;
+  width: 400px;
+  margin: 0 auto;
+}
+
+img {
+  vertical-align:text-top;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+li {
+  list-style: none;
+}
+
+fieldset {
+  border: 1px solid #999;
+}
+
+input, select, textarea {
+  width: 260px;
+}
+
+textarea {
+  height: 80px;
+}
+
+input.button {
+  width: 80px;
+  float: right;
+  margin-right: 100px;
+}
+
+label {
+  width: 100px;
+  display: block;
+  float: left;
+}
+
+a.add_quote {
+  display: block; 
+  text-align: center; 
+  margin: 20px 0 10px 0;
+}
+
+.quote {
+  margin-top: 25px;
+}
+
+.quote_info {
+  color: #ccc;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.quote_info a {
+  position: relative;
+  top: 11px;
+  color: #ccc;
+  background-color: white;
+}
+
+.quote img {
+  width: 50px;
+  height: 50px;    
+}
+
+.name {
+  color: #3B5998;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.comment {      
+  margin: 2px 0px 2px 60px;
+  background-color: #E7EBF2;
+}
+
+.comment img{
+  width: 30px;
+  height: 30px;
+}
+
+ul.people li {
+  background-color: #E7EBF2;
+  margin: 10px;
+  width: 103px;
+  float: left;
+}
+
+ul.people li img {
+  display: block;
+  margin: 0 5px;
+}
