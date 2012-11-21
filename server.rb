@@ -2,7 +2,7 @@ require 'sinatra'
 require 'haml'
 require 'data_mapper'
 
-DataMapper.setup(:default, 'postgres://postgres:postgres@127.0.0.1/quotes_board')
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@127.0.0.1/quotes_board')
 
 set :haml, :format => :html5
 
