@@ -48,8 +48,8 @@ label {
 }
 
 a.add_quote {
-  display: block; 
-  text-align: center; 
+  display: block;
+  text-align: center;
   margin: 20px 0 10px 0;
 }
 
@@ -73,18 +73,22 @@ a.add_quote {
 
 .quote img {
   width: 50px;
-  height: 50px;    
+  height: 50px;
+  float: left;
 }
 
 .name {
   color: #3B5998;
   font-weight: bold;
   letter-spacing: 1px;
+  padding-left: 0;
 }
 
-.comment {      
+.comment {
   margin: 2px 0px 2px 60px;
   background-color: #E7EBF2;
+  clear: both;
+  min-height: 36px;
 }
 
 .comment img{
