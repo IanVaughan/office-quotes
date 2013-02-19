@@ -37,7 +37,6 @@ DataMapper.finalize.auto_upgrade!
 
 
 class MyApp < Sinatra::Application
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@127.0.0.1/quotes_board')
 
   set :public_folder, File.dirname(__FILE__) + '/static'
   set :haml, :format => :html5
