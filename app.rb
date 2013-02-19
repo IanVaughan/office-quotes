@@ -61,6 +61,13 @@ class MyApp < Sinatra::Base
     haml :quote_edit
   end
 
+  get '/quote/edit/:id' do
+    @quote = Quote.get(params[:id])
+    @comments = Comment.all(:quote => params[:id], :order => [ :id ])
+
+    haml :quote_edit
+  end
+
   get '/quote/:id/?.?:format?' do
     @quote = Quote.get(params[:id])
     @comments = Comment.all(:quote => params[:id], :order => [ :id ])
@@ -72,13 +79,6 @@ class MyApp < Sinatra::Base
     else
       haml :quote_view
     end
-  end
-
-  get '/quote/edit/:id' do
-    @quote = Quote.get(params[:id])
-    @comments = Comment.all(:quote => params[:id], :order => [ :id ])
-
-    haml :quote_edit
   end
 
   post '/quote/edit' do
