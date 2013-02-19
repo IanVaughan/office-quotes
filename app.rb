@@ -4,7 +4,7 @@ require 'data_mapper'
 
 class MyApp < Sinatra::Application
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@127.0.0.1/quotes_board')
-  
+
   set :public_folder, File.dirname(__FILE__) + '/static'
   set :haml, :format => :html5
 
@@ -27,7 +27,6 @@ class MyApp < Sinatra::Application
 
   get '/quote/edit/:id' do
     @quote = Quote.get(params[:id])
-
     @comments = Comment.all(:quote => @quote.id, :order => [ :id ])
 
     haml :quote_edit
@@ -53,8 +52,8 @@ class MyApp < Sinatra::Application
     @comment.person = params[:person]
     @comment.comment = params[:comment]
     @comment.save
-    
-    redirect "quote/edit/#{params[:id]}"
+
+    redirect "/quote/edit/#{params[:id]}"
   end
 
   get '/people' do
@@ -86,7 +85,7 @@ class MyApp < Sinatra::Application
   post '/person/delete/:id' do
     Person.get(params[:id]).destroy
 
-    redirect '/people'  
+    redirect '/people'
   end
 
   helpers do
