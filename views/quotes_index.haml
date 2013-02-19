@@ -1,11 +1,4 @@
 %a.add_quote{:href => '/quote/edit'} Add Quote
 %a.add_quote{:href => '/random'} Random Quote
 - Quote.all(:order => [ :id.desc ]).each do |quote|
-  .quote
-    .quote_info
-      %span
-        %a{:href => "quote/edit/#{quote.id}"}
-          Posted by
-          =Person.get(quote.posted_by).name
-          =quote.quote_date.strftime(fmt='%d-%m-%Y')
-    = render_quote(quote)
+  = haml :quote_view, :locals => {:quote => quote}

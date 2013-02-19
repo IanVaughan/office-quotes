@@ -78,7 +78,7 @@ class MyApp < Sinatra::Base
       content_type :json
       {:quote => @quote, :comments => @comments}.to_json
     else
-      haml :quote_view
+      haml :quote_view, :locals => {:quote => @quote}
     end
   end
 
