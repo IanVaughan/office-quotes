@@ -1,6 +1,9 @@
 require 'sinatra'
 require 'haml'
 require 'data_mapper'
+require 'logger'  # only required to set log level
+
+DataMapper::Logger.new($stdout, :debug)
 class Quote
   include DataMapper::Resource
 
@@ -37,6 +40,10 @@ class MyApp < Sinatra::Application
 
   use Rack::Auth::Basic, "Protected Area" do |username, password|
     username == 'foo' && password == 'bar'
+  end
+
+  configure :development do
+    set :logging, Logger::DEBUG
   end
 
   get '/' do
