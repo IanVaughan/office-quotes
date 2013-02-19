@@ -4,6 +4,8 @@ require 'data_mapper'
 require 'logger'  # only required to set log level
 
 DataMapper::Logger.new($stdout, :debug)
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@127.0.0.1/quotes_board')
+
 class Quote
   include DataMapper::Resource
 
@@ -30,6 +32,8 @@ class Person
   property :name,       String
   property :avatar,     String,     :length => 255
 end
+
+DataMapper.finalize.auto_upgrade!
 
 
 class MyApp < Sinatra::Application
