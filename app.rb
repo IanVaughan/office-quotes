@@ -155,7 +155,11 @@ class MyApp < Sinatra::Base
 
     def render_comment(quote)
       person = Person.get(quote.person)
-      "<img src='#{person.avatar}' /><span class='name'>#{person.name}</span><span class='text'>#{quote.comment}</span>"
+      "<img src='#{person.avatar}' />
+      <span class='name'>#{person.name}</span>
+      <a href='quote/#{quote.id}'>
+        <span class='text'>#{quote.comment}</span>
+      </a>"
     end
   end
 end
