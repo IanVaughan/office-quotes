@@ -36,8 +36,7 @@ end
 DataMapper.finalize.auto_upgrade!
 
 
-class MyApp < Sinatra::Application
-
+class MyApp < Sinatra::Base
   set :public_folder, File.dirname(__FILE__) + '/static'
   set :haml, :format => :html5
 
