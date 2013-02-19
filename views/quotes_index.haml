@@ -1,4 +1,5 @@
-%a.add_quote{:href => 'quote/edit'} Add Quote
+%a.add_quote{:href => '/quote/edit'} Add Quote
+%a.add_quote{:href => '/random'} Random Quote
 - Quote.all(:order => [ :id.desc ]).each do |quote|
   .quote
     .quote_info
