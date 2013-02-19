@@ -2,6 +2,7 @@ require 'sinatra'
 require 'haml'
 require 'data_mapper'
 require 'logger'  # only required to set log level
+require 'json'
 
 DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@127.0.0.1/quotes_board')
@@ -79,6 +80,10 @@ class MyApp < Sinatra::Base
     else
       haml :quote_view
     end
+  end
+
+  get '/random/?.?:format?' do
+    redirect "/quote/#{rand(1..Quote.count)}/.#{params[:format]}"
   end
 
   post '/quote/edit' do
