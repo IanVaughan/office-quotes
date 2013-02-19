@@ -13,9 +13,9 @@
           %select{:name =>  "posted_by"}
             - for person in Person.all
               %option{:selected => @quote.posted_by, :value => person.id} #{person.name}
-      
+
     %br
-    %fieldset    
+    %fieldset
       %ul
         %li
           %b Quote
@@ -36,7 +36,7 @@
 
 - if !@quote.person.nil?
   %form{ :action => "/quote/#{@quote.id}/comments", :method => "post"}
-    %fieldset    
+    %fieldset
       %ul
         %li
           %label{:for => "person"} Name:
