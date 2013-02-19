@@ -20,6 +20,19 @@ class MyApp < Sinatra::Application
     haml :quotes_index
   end
 
+  get '/quote/:id/?.?:format?' do
+    @quote = Quote.get(params[:id])
+    @comments = Comment.all(:quote => @quote.id, :order => [ :id ])
+
+    case params[:format]
+    when 'json'
+      content_type :json
+      {:quote => @quote, :comments => @comments}.to_json
+    else
+      haml :quote_view
+    end
+  end
+
   get '/quote/edit' do
     @quote = Quote.new
     haml :quote_edit
