@@ -7,26 +7,26 @@ class Quote
   include DataMapper::Resource
 
   property :id,         Serial
-  property :person,     Integer
-  property :comment,    Text
+  property :person,     Integer, required: true
+  property :comment,    Text,   required: true, :length => 1..255
   property :quote_date, DateTime
-  property :posted_by,  String
+  property :posted_by,  String, required: true
 end
 
 class Comment
   include DataMapper::Resource
 
   property :id,         Serial
-  property :quote,      Integer
-  property :person,     Integer
-  property :comment,    Text
+  property :quote,      Integer,  required: true
+  property :person,     Integer,  required: true
+  property :comment,    Text,     required: true, :length => 1..255
 end
 
 class Person
   include DataMapper::Resource
 
   property :id,         Serial
-  property :name,       String
+  property :name,       String,     required: true, :length => 1..255
   property :avatar,     String,     :length => 255
 end
 
