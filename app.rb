@@ -1,41 +1,8 @@
 require 'sinatra'
 require 'haml'
-require 'data_mapper'
 require 'logger'  # only required to set log level
 require 'json'
-
-DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@127.0.0.1/quotes_board')
-
-class Quote
-  include DataMapper::Resource
-
-  property :id,         Serial
-  property :person,     Integer
-  property :comment,    Text
-  property :quote_date, DateTime
-  property :posted_by,  String
-end
-
-class Comment
-  include DataMapper::Resource
-
-  property :id,         Serial
-  property :quote,      Integer
-  property :person,     Integer
-  property :comment,    Text
-end
-
-class Person
-  include DataMapper::Resource
-
-  property :id,         Serial
-  property :name,       String
-  property :avatar,     String,     :length => 255
-end
-
-DataMapper.finalize.auto_upgrade!
-
+require './app/models/models'
 
 class MyApp < Sinatra::Base
   set :public_folder, File.dirname(__FILE__) + '/static'
