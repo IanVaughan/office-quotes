@@ -143,6 +143,11 @@ class MyApp < Sinatra::Base
     redirect '/people'
   end
 
+  get '/person/quotes/:id' do
+    @quotes = Quote.all(:person => params[:id], :order => [ :id.desc ])
+    haml :quotes_index
+  end
+
   helpers do
     def render_quote(quote)
       comments = Comment.all(:quote => quote.id, :order => [ :id ])
@@ -157,8 +162,10 @@ class MyApp < Sinatra::Base
     def render_comment(quote)
       person = Person.get(quote.person)
       "<img src='#{person.avatar}' />
-      <span class='name'>#{person.name}</span>
-      <a href='quote/#{quote.id}'>
+      <a href='/person/quotes/#{person.id}'>
+        <span class='name'>#{person.name}</span>
+      </a>
+      <a href='/quote/#{quote.id}'>
         <span class='text'>#{quote.comment}</span>
       </a>"
     end
