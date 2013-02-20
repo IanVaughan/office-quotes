@@ -33,14 +33,15 @@ class MyApp < Sinatra::Base
   end
 
   get '/quote/:id/?.?:format?' do
-    @quote = Quote.get(params[:id])
+    quote = Quote.get(params[:id])
+    comments = Comment.all(:quote => params[:id], :order => [ :id ])
 
     case params[:format]
     when 'json'
       content_type :json
-      {:quote => @quote, :comments => @comments}.to_json
+      {:quote => quote, :comments => comments}.to_json
     else
-      haml :quote_view, :locals => {:quote => @quote}
+      haml :quote_view, :locals => {:quote => quote}
     end
   end
 
