@@ -51,27 +51,18 @@ class MyApp < Sinatra::Base
   end
 
   post '/quote/edit' do
-    @quote = params[:id].nil? ? Quote.new : Quote.get(params[:id])
-    @quote.person = params[:person]
-    @quote.comment = params[:comment]
-    @quote.quote_date = params[:quote_date]
-    @quote.posted_by = params[:posted_by]
+    quote = Quote.update_or_create(params)
 
-    if @quote.save
-      redirect "/quote/edit/#{@quote.id}"
+    if quote.save
+      redirect "/quote/edit/#{quote.id}"
     else
-      @quote.person = nil
-      haml :quote_edit
+      quote.person = nil
+      haml :quote_edit, :locals => {:quote => quote}
     end
   end
 
   post '/quote/:id/comments' do
-    @comment = Comment.new
-    @comment.quote = params[:id]
-    @comment.person = params[:person]
-    @comment.comment = params[:comment]
-    @comment.save
-
+    comment = Comment.new(params)
     redirect "/quote/edit/#{params[:id]}"
   end
 
@@ -103,7 +94,6 @@ class MyApp < Sinatra::Base
 
   post '/person/delete/:id' do
     Person.get(params[:id]).destroy
-
     redirect '/people'
   end
 
