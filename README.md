@@ -1,14 +1,16 @@
-psql -h localhost
 
-CREATE USER postgres WITH PASSWORD 'postgres';
+## Set the shit up
 
-CREATE DATABASE quotes_board WITH OWNER user;
-# /usr/local/pgsql/bin/createdb mydb -O user
+    $ psql -h localhost
 
-\i db/db.sql
-psql -U username -d myDataBase -a -f myInsertFile
+    # CREATE USER postgres WITH PASSWORD 'postgres';
 
+    # CREATE DATABASE quotes_board WITH OWNER postgres;   #or /usr/local/pgsql/bin/createdb mydb -O user
 
-GRANT ALL PRIVILEGES ON DATABASE quotes_board to postgres;
+    # GRANT ALL PRIVILEGES ON DATABASE quotes_board to postgres;
 
-\q
+    # \q
+
+## Run the shit
+
+    rackup
