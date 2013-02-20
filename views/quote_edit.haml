@@ -30,11 +30,11 @@
 
       %input.button{:type => "submit", :value => "Add"}
 
-- if !quote.person.nil?
+- unless quote.person.nil?
   .quote
     = render_quote(quote)
 
-- if !quote.person.nil?
+- unless quote.person.nil?
   %form{ :action => "/quote/#{quote.id}/comments", :method => "post"}
     %fieldset
       %ul
