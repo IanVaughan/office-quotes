@@ -54,6 +54,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/quotes' do
+    @quotes = Quote.all(:order => [ :id.desc ])
     haml :quotes_index
   end
 
