@@ -14,3 +14,18 @@
 ## Run the shit
 
     rackup
+
+
+## Back this shit up
+
+    heroku pgbackups:capture # perform manual backup
+    curl -o latest.dump `heroku pgbackups:url` # download latest backup
+
+    heroku pgbackups # list backups
+
+    # import downloaded dump into local DB
+    pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d quotes_board ~/Downloads/latest.dump
+
+
+https://devcenter.heroku.com/articles/pgbackups#downloading-a-backup
+https://devcenter.heroku.com/articles/heroku-postgres-import-export#export
