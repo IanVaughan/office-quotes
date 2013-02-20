@@ -34,6 +34,7 @@ class MyApp < Sinatra::Base
 
   get '/quote/:id/?.?:format?' do
     quote = Quote.get(params[:id])
+    redirect '/' if quote.nil?
     comments = Comment.all(:quote => params[:id], :order => [ :id ])
 
     case params[:format]
