@@ -1,5 +1,5 @@
 %h3="#{@quote.id.nil? ? "New" : "Edit"} Quote"
-= @quote.errors.inspect unless @quote.errors.empty?
+= @quote.errors[:comment].first unless @quote.errors.empty?
 
 - if @quote.person.nil?
   %form{ :action => "/quote/edit", :method => "post"}
