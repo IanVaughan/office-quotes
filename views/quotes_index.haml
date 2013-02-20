@@ -1,3 +1,3 @@
 %a.add_quote{:href => '/quote/edit'} Add Quote
-- @quotes.each do |quote|
+- quotes.each do |quote|
   = haml :quote_view, :locals => {:quote => quote}

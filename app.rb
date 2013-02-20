@@ -21,8 +21,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/quotes' do
-    @quotes = Quote.all(:order => [ :id.desc ])
-    haml :quotes_index
+    haml :quotes_index, :locals => {:quotes => Quote.all(:order => [ :id.desc ])}
   end
 
   get '/quote/edit' do
@@ -109,8 +108,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/person/quotes/:id' do
-    @quotes = Quote.all(:person => params[:id], :order => [ :id.desc ])
-    haml :quotes_index
+    haml :quotes_index, :locals => {:quotes => Quote.all(:person => params[:id], :order => [ :id.desc ])}
   end
 
   helpers do
