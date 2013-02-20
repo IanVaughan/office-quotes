@@ -61,6 +61,7 @@ class MyApp < Sinatra::Base
     if @quote.save
       redirect "/quote/edit/#{@quote.id}"
     else
+      @quote.person = nil
       haml :quote_edit
     end
   end
