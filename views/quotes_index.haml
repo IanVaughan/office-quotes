@@ -1,4 +1,3 @@
 %a.add_quote{:href => '/quote/edit'} Add Quote
-%a.add_quote{:href => '/random'} Random Quote
 - @quotes.each do |quote|
   = haml :quote_view, :locals => {:quote => quote}
