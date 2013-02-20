@@ -105,22 +105,21 @@ class MyApp < Sinatra::Base
     def render_quote(quote)
       comments = Comment.all(:quote => quote.id, :order => [ :id ])
 
-      html = render_comment(quote)
+      html = render_comment(quote, true)
       comments.each do |comment|
         html += "<div class='comment'>#{render_comment(comment)}</div>"
       end
       html
     end
 
-    def render_comment(quote)
+    def render_comment(quote, link = false)
       person = Person.get(quote.person)
-      "<img src='#{person.avatar}' />
-      <a href='/person/quotes/#{person.id}'>
-        <span class='name'>#{person.name}</span>
-      </a>
-      <a href='/quote/#{quote.id}'>
-        <span class='text'>#{quote.comment}</span>
-      </a>"
+      html = "<img src='#{person.avatar}' />"
+      html << "<a href='/person/quotes/#{person.id}'><span class='name'>#{person.name}</span></a>"
+      html << "<a href='/quote/#{quote.id}'>" if link
+      html << "<span class='text'>#{quote.comment}</span>"
+      html << "</a>" if link
+      html
     end
   end
 end
