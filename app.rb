@@ -25,13 +25,11 @@ class MyApp < Sinatra::Base
   end
 
   get '/quote/edit' do
-    @quote = Quote.new
-    haml :quote_edit
+    haml :quote_edit, :locals => {:quote => Quote.new}
   end
 
   get '/quote/edit/:id' do
-    @quote = Quote.get(params[:id])
-    haml :quote_edit
+    haml :quote_edit, :locals => {:quote => Quote.get(params[:id])}
   end
 
   get '/quote/:id/?.?:format?' do
