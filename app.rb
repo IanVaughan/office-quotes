@@ -32,14 +32,11 @@ class MyApp < Sinatra::Base
 
   get '/quote/edit/:id' do
     @quote = Quote.get(params[:id])
-    @comments = Comment.all(:quote => params[:id], :order => [ :id ])
-
     haml :quote_edit
   end
 
   get '/quote/:id/?.?:format?' do
     @quote = Quote.get(params[:id])
-    @comments = Comment.all(:quote => params[:id], :order => [ :id ])
 
     case params[:format]
     when 'json'
