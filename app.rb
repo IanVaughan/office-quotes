@@ -47,7 +47,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/random/?.?:format?' do
-    redirect "/quote/#{rand(1..Quote.count)}/.#{params[:format]}"
+    redirect "/quote/#{rand(Quote.count-1)+1}/.#{params[:format]}"
   end
 
   post '/quote/edit' do
