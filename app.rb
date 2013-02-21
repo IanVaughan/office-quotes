@@ -29,7 +29,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/quote/edit/:id' do
-    haml :quote_edit, :locals => {:quote => Quote.get(params[:id])}
+    haml :quote_edit, :locals => {:quote => Quote.get(params[:id])} # what if ID/quote is invalid?
   end
 
   get '/quote/:id/?.?:format?' do
@@ -47,6 +47,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/random/?.?:format?' do
+    #TODO: dont redirect as that changes the URL, keep it as /random
     redirect "/quote/#{rand(Quote.count-1)+1}/.#{params[:format]}"
   end
 
@@ -63,8 +64,15 @@ class MyApp < Sinatra::Base
 
   post '/quote/:id/comments' do
     comment = Comment.new(params)
+    #TODO: need a way of showing a error if a comment save fails
+    unless comment.save
+      # Quote.get(params[:id]).errors = {:comment => "BALLS"}
+    end
     redirect "/quote/edit/#{params[:id]}"
   end
+
+
+  # people / person
 
   get '/people' do
     haml :people_index
@@ -114,6 +122,8 @@ class MyApp < Sinatra::Base
 
     def render_comment(quote, link = false)
       person = Person.get(quote.person)
+      #TODO: make image and name link to person
+      #TODO: make whole quote area link to view single quote
       html = "<img src='#{person.avatar}' />"
       html << "<a href='/person/quotes/#{person.id}'><span class='name'>#{person.name}</span></a>"
       html << "<a href='/quote/#{quote.id}'>" if link
