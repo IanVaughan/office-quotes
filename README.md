@@ -1,4 +1,3 @@
-
 ## Set the shit up
 
     $ psql -h localhost
@@ -26,6 +25,10 @@
     # import downloaded dump into local DB
     pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d quotes_board ~/Downloads/latest.dump
 
+* [heroku help 1](https://devcenter.heroku.com/articles/pgbackups#downloading-a-backup)
+* [heroku help 2](https://devcenter.heroku.com/articles/heroku-postgres-import-export#export)
 
-https://devcenter.heroku.com/articles/pgbackups#downloading-a-backup
-https://devcenter.heroku.com/articles/heroku-postgres-import-export#export
+
+## Credits
+
+* All goes to [@timtait](https://github.com/timtait)
