@@ -31,4 +31,4 @@
 
 ## Credits
 
-* Written and mostly all written by [@timtait](https://github.com/timtait), I just tweeked a few bits.
+* Written mostly all by [@timtait](https://github.com/timtait), I just tweeked a few bits.
