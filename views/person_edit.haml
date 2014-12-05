@@ -11,4 +11,6 @@
       %li
         %label{:for => "avatar"} Avatar URL:
         %input.text{:type => "text", :name => "avatar", :value => @person.avatar}
+    - unless @person.id.nil?
+      %input{:type => "hidden", :name => "id", :value => @person.id}
     %input.button{:type => "submit", :value => "Submit"}
